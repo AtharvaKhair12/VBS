@@ -3,203 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Banking System - Sign Up</title>
+    <meta name="description" content="Register for a VBS account - Securely join the Virtual Banking System for instant transfers and digital ledger management.">
+    <title>VBS Sign Up | Account Registration</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* --- BRANDING: VBS SLATE & COBALT --- */
+        :root {
+            --vbs-primary: #0f172a;    /* High-contrast Slate */
+            --vbs-accent: #3b82f6;     /* Cobalt Blue */
+            --vbs-bg: #f8fafc;
+            --vbs-white: #ffffff;
+            --vbs-text: #1e293b;
+            --vbs-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--vbs-bg);
+            color: var(--vbs-text);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 1.25rem;
         }
 
-        .container {
-            width: 90%;
-            max-width: 450px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        /* Semantic Container */
+        main {
+            width: 100%;
+            max-width: 460px;
+            background: var(--vbs-white);
+            border-radius: 1rem;
+            box-shadow: var(--vbs-shadow);
             overflow: hidden;
+            border-top: 5px solid var(--vbs-accent);
         }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px;
+        header {
+            background: var(--vbs-primary);
+            padding: 2.5rem 2rem;
             text-align: center;
             color: white;
         }
 
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
+        header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
         }
 
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
+        header h1 span { color: var(--vbs-accent); }
+
+        header p {
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            opacity: 0.8;
+            font-weight: 500;
         }
 
-        .content {
-            padding: 40px 30px;
+        .content { padding: 2.5rem 2rem; }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--vbs-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 700;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+        /* Form Controls */
+        .form-group { margin-bottom: 1.25rem; }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-            font-size: 14px;
+            margin-bottom: 0.5rem;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.875rem;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            padding: 0.75rem 1rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 0.625rem;
+            font-size: 1rem;
+            color: var(--vbs-text);
+            transition: all 0.2s;
+            background: #fff;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: var(--vbs-accent);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
         }
 
+        /* SEO Friendly Button */
         .btn {
             width: 100%;
-            padding: 14px;
+            padding: 0.875rem;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            border-radius: 0.625rem;
+            font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: 600;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-weight: 700;
+            background: var(--vbs-primary);
             color: white;
+            margin-top: 1rem;
         }
 
         .btn:hover {
+            background: #1e293b;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
         }
 
-        .link {
+        /* Navigational Links */
+        .link-area {
             text-align: center;
-            margin-top: 20px;
-            color: #666;
-            font-size: 14px;
+            margin-top: 1.5rem;
+            color: #64748b;
+            font-size: 0.875rem;
         }
 
-        .link a {
-            color: #667eea;
+        .link-area a {
+            color: var(--vbs-accent);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
         }
 
-        .link a:hover {
-            text-decoration: underline;
-        }
+        .link-area a:hover { text-decoration: underline; }
 
+        /* Feedback Messages */
         .message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
+            padding: 1rem;
+            border-radius: 0.625rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
             display: none;
+            font-weight: 600;
+            border: 1px solid transparent;
         }
 
         .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-
-        .message.show {
+            background: #dcfce7;
+            color: #166534;
+            border-color: #bbf7d0;
             display: block;
         }
 
-        h2 {
-            color: #333;
-            margin-bottom: 25px;
-            text-align: center;
+        .message.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-color: #fecaca;
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>VBS</h1>
-            <p>Virtual Banking System</p>
+
+<main>
+    <header>
+        <h1>VBS <span>ONLINE</span></h1>
+        <p>Virtual Banking System Registration</p>
+    </header>
+
+    <div class="content">
+        <h2>Open Account</h2>
+
+        <div id="signupMessage" class="message" role="alert"></div>
+
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="signupName">Full Legal Name</label>
+                <input type="text" id="signupName" name="name" required aria-required="true">
+            </div>
+
+            <div class="form-group">
+                <label for="signupUsername">Username</label>
+                <input type="text" id="signupUsername" name="username" required aria-required="true">
+            </div>
+
+            <div class="form-group">
+                <label for="signupEmail">Email Address</label>
+                <input type="email" id="signupEmail" name="email" required aria-required="true">
+            </div>
+
+            <div class="form-group">
+                <label for="signupPassword">Security Password</label>
+                <input type="password" id="signupPassword" name="password" required aria-required="true">
+            </div>
+
+            <div class="form-group">
+                <label for="signupRole">Desired System Role</label>
+                <select id="signupRole" name="role" required aria-required="true">
+                    <option value="">Select Role</option>
+                    <option value="customer">Customer</option>
+                    <option value="admin">Administrator</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">CREATE VBS ACCOUNT</button>
+        </form>
+
+        <div class="link-area">
+            Already a member? <a onclick="window.location.href='login.html'">Login Now</a>
         </div>
-
-        <div class="content">
-            <h2>Sign Up</h2>
-            
-            <div id="signupMessage" class="message"></div>
-
-            <form id="signupForm">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="signupName" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" id="signupUsername" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="signupEmail" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="signupPassword" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Role</label>
-                    <select id="signupRole" required>
-                        <option value="">Select Role</option>
-                        <option value="customer">Customer</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn">Create Account</button>
-            </form>
-
-            <div class="link">
-                Already have an account? <a onclick="window.location.href='login.html'">Login</a>
-            </div>
-            <div class="link">
-                <a onclick="window.location.href='home.html'">← Back to Home</a>
-            </div>
+        <div class="link-area">
+            <a onclick="window.location.href='home.html'">← Return to Home</a>
         </div>
     </div>
+</main>
 
-    <script>
+<script>
+    /* --- STRICT VBS BACKEND LOGIC PRESERVATION --- */
     const showMessage = (id, text, type) => {
         const msg = document.getElementById(id);
         msg.innerText = text;
@@ -217,7 +240,7 @@
             email: document.getElementById("signupEmail").value,
             password: document.getElementById("signupPassword").value,
             role: document.getElementById("signupRole").value,
-            balance:0
+            balance: 0
         };
 
         fetch("http://localhost:8081/register", {
@@ -235,8 +258,10 @@
                     "Account created successfully! Please login.",
                     "success"
                 );
-
-                window.location.href = "login.html";
+                // Delayed redirect to allow users to see success message
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 1500);
             } else {
                 showMessage("signupMessage", result, "error");
             }
@@ -244,7 +269,7 @@
         .catch(error => {
             showMessage(
                 "signupMessage",
-                "Error connecting to server. Please try again.",
+                "VBS Network Error: Connection refused.",
                 "error"
             );
             console.error("Signup error:", error);

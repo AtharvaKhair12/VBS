@@ -3,155 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Banking System - Home</title>
+    <meta name="description" content="VBS - A secure, modern Virtual Banking System for managing personal finances, instant transfers, and digital ledgers.">
+    <title>VBS | Secure Virtual Banking System</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* --- BRANDING: VBS SLATE & COBALT --- */
+        :root {
+            --vbs-primary: #0f172a;    /* High-contrast Slate */
+            --vbs-accent: #3b82f6;     /* Cobalt Blue */
+            --vbs-bg: #f8fafc;
+            --vbs-white: #ffffff;
+            --vbs-text: #1e293b;
+            --vbs-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--vbs-bg);
+            color: var(--vbs-text);
+            line-height: 1.6;
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
+        }
+
+        /* Semantic Navigation */
+        nav {
+            background: var(--vbs-primary);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--vbs-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo h1 { font-size: 1.5rem; font-weight: 800; color: white; letter-spacing: -0.025em; }
+        .logo span { color: var(--vbs-accent); }
+
+        .nav-links { display: flex; gap: 1.5rem; }
+
+        .btn-nav {
+            padding: 0.625rem 1.25rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: 0.2s;
+        }
+
+        .btn-login { color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-login:hover { background: rgba(255,255,255,0.1); }
+
+        .btn-signup { background: var(--vbs-accent); color: white; }
+        .btn-signup:hover { background: #2563eb; transform: translateY(-1px); }
+
+        /* Hero Section */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            padding: 4rem 1rem;
+        }
+
+        .hero-container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
             align-items: center;
         }
 
-        .container {
-            width: 90%;
-            max-width: 450px;
+        .hero-text h2 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            color: var(--vbs-primary);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero-text h2 span { color: var(--vbs-accent); }
+
+        .hero-text p {
+            font-size: 1.125rem;
+            color: #64748b;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+
+        .hero-actions { display: flex; gap: 1rem; }
+
+        .btn-hero {
+            padding: 1rem 2rem;
+            border-radius: 0.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .hero-primary { background: var(--vbs-primary); color: white; box-shadow: var(--vbs-shadow); }
+        .hero-primary:hover { background: #1e293b; transform: translateY(-2px); }
+
+        /* Features Section */
+        .features-card {
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px;
-            text-align: center;
-            color: white;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            margin-bottom: 5px;
-        }
-
-        .header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .content {
-            padding: 40px 30px;
-        }
-
-        .home-content {
-            text-align: center;
-        }
-
-        .home-content h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 24px;
-        }
-
-        .home-content p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .btn-secondary {
-            background: #f0f0f0;
-            color: #333;
-        }
-
-        .btn-secondary:hover {
-            background: #e0e0e0;
-        }
-
-        .features {
+            padding: 3rem;
+            border-radius: 1.5rem;
+            box-shadow: var(--vbs-shadow);
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin: 30px 0;
+            grid-template-columns: 1fr;
+            gap: 2rem;
         }
 
-        .feature {
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            text-align: center;
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
         }
 
         .feature-icon {
-            font-size: 32px;
-            margin-bottom: 10px;
+            background: #eff6ff;
+            color: var(--vbs-accent);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-weight: 800;
         }
 
-        .feature h3 {
-            font-size: 14px;
-            color: #333;
-            margin-bottom: 5px;
+        .feature-info h3 { font-size: 1.125rem; color: var(--vbs-primary); margin-bottom: 0.25rem; }
+        .feature-info p { font-size: 0.875rem; color: #64748b; }
+
+        footer {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
         }
 
-        .feature p {
-            font-size: 12px;
-            color: #666;
+        @media (max-width: 900px) {
+            .hero-container { grid-template-columns: 1fr; text-align: center; gap: 3rem; }
+            .hero-text h2 { font-size: 2.5rem; }
+            .hero-text p { margin-left: auto; margin-right: auto; }
+            .hero-actions { justify-content: center; }
+            .features-card { padding: 2rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>VBS</h1>
-            <p>Virtual Banking System</p>
+
+<nav>
+    <div class="logo">
+        <h1>VBS<span> ONLINE</span></h1>
+    </div>
+    <div class="nav-links">
+        <a href="login.html" class="btn-nav btn-login">Login</a>
+        <a href="signup.html" class="btn-nav btn-signup">Get Started</a>
+    </div>
+</nav>
+
+<main>
+    <div class="hero-container">
+        <div class="hero-text">
+            <h2>The Future of <span>Virtual Banking</span> is Here.</h2>
+            <p>Experience a secure, seamless, and high-speed financial environment. Manage accounts, track ledgers, and execute transfers with military-grade encryption.</p>
+            <div class="hero-actions">
+                <a href="signup.html" class="btn-hero hero-primary">Create Your Account</a>
+            </div>
         </div>
 
-        <div class="content">
-            <div class="home-content">
-                <h2>Welcome to VBS</h2>
-                <p>Experience secure and convenient banking at your fingertips. Manage your finances with confidence.</p>
-                
-                
-                <div class="btn-group">
-                    <button class="btn btn-primary" onclick="window.location.href='login.html'">Login</button>
-                    <button class="btn btn-secondary" onclick="window.location.href='signup.html'">Sign Up</button>
+        <div class="features-card">
+            <div class="feature-item">
+                <div class="feature-icon">01</div>
+                <div class="feature-info">
+                    <h3>Instant Transfers</h3>
+                    <p>Move funds across the VBS network in real-time with zero latency.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">02</div>
+                <div class="feature-info">
+                    <h3>Digital Passbook</h3>
+                    <p>Keep a detailed, permanent record of every transaction in your system.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">03</div>
+                <div class="feature-info">
+                    <h3>Secure Authentication</h3>
+                    <p>Your data is protected by VBS-specific security protocols and logic.</p>
                 </div>
             </div>
         </div>
     </div>
+</main>
+
+<footer>
+    &copy; 2025 Virtual Banking System (VBS). Engineered for Secure Personal Finance.
+</footer>
+
+<script>
+    /* --- VBS LANDING PAGE LOGIC --- */
+    // No specific backend logic needed for landing page redirects
+    // but local storage can be checked to auto-redirect logged-in users
+    window.addEventListener('DOMContentLoaded', () => {
+        const userId = localStorage.getItem('userId');
+        const role = localStorage.getItem('role');
+        if (userId && role) {
+            // If user is already logged in, redirect to their dashboard
+            const dashboardPage = role === 'admin' ? 'admin.html' : 'dashboard.html';
+            // Uncomment the line below to enable auto-redirect
+            // window.location.href = `${dashboardPage}?id=${userId}&role=${role}`;
+        }
+    });
+</script>
 </body>
 </html>
