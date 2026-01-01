@@ -3,27 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="VBS Admin Panel - Secure Virtual Banking System Management Interface">
+    <meta name="description" content="VBS Admin Panel - Secure Virtual Banking System Management Interface with Glass-morphism UI and Real-time Wealth Analytics">
     <title>VBS Admin | Secure Management Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* --- SEO & ACCESSIBILITY OPTIMIZED CSS --- */
+        /* --- BRANDING & GLASS-MORPHISM CSS --- */
         :root {
-            --vbs-primary: #0f172a;    /* High contrast slate */
-            --vbs-accent: #2563eb;     /* Clear cobalt blue */
-            --vbs-success: #059669;    /* Accessible emerald */
-            --vbs-danger: #dc2626;     /* High-vis red */
+            --vbs-primary: #0f172a;
+            --vbs-accent: #2563eb;
+            --vbs-success: #059669;
+            --vbs-danger: #dc2626;
             --vbs-text: #1e293b;
-            --vbs-bg: #f8fafc;
-            --vbs-white: #ffffff;
+            --vbs-bg: #f1f5f9;
+            /* Semi-transparent glass colors */
+            --glass-white: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --vbs-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--vbs-bg);
+            background: radial-gradient(circle at top right, #e2e8f0, #f8fafc);
             color: var(--vbs-text);
             line-height: 1.5;
+            min-height: 100vh;
         }
 
         /* Semantic Layout */
@@ -37,7 +42,7 @@
             box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
         }
 
-        header h1 { font-size: 1.5rem; font-weight: 700; }
+        header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; }
         header h1 span { color: var(--vbs-accent); }
 
         nav {
@@ -55,6 +60,7 @@
             cursor: pointer;
             background: none;
             border: none;
+            transition: color 0.2s;
         }
 
         .nav-link:hover { color: white; }
@@ -65,10 +71,20 @@
             padding: 0 1rem;
         }
 
-        /* SEO Friendly Typography */
-        h2 { color: var(--vbs-primary); font-size: 1.875rem; margin-bottom: 1.5rem; }
+        h2 { color: var(--vbs-primary); font-size: 1.875rem; margin-bottom: 1.5rem; font-weight: 800; }
 
-        /* Stats Component */
+        /* --- GLASS-MORPHISM COMPONENTS --- */
+        .glass-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
+            box-shadow: var(--vbs-shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -77,67 +93,87 @@
         }
 
         .stat-card {
-            background: var(--vbs-white);
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
             padding: 1.5rem;
-            border-radius: 0.75rem;
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
-            border-bottom: 3px solid var(--vbs-accent);
+            border-radius: 1rem;
+            transition: transform 0.3s;
         }
 
-        .stat-label { font-size: 0.875rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
-        .stat-value { font-size: 1.5rem; font-weight: 700; color: var(--vbs-primary); margin-top: 0.5rem; }
+        .stat-card:hover { transform: translateY(-5px); }
+        .stat-label { font-size: 0.75rem; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--vbs-primary); margin-top: 0.5rem; }
 
-        /* Controls Section */
+        /* Analytics Section */
+        .analytics-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-box {
+            height: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Form Controls */
         .controls {
             display: flex;
             flex-wrap: wrap;
             gap: 1rem;
-            background: white;
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            align-items: center;
         }
 
         input, select {
             padding: 0.625rem 1rem;
             border: 1px solid #e2e8f0;
-            border-radius: 0.5rem;
-            font-size: 1rem;
+            border-radius: 0.625rem;
+            font-size: 0.875rem;
             min-width: 200px;
+            background: white;
         }
 
         .btn {
             padding: 0.625rem 1.25rem;
-            border-radius: 0.5rem;
-            font-weight: 600;
+            border-radius: 0.625rem;
+            font-weight: 700;
             cursor: pointer;
             border: none;
-            transition: 0.2s;
+            transition: 0.3s;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.025em;
         }
 
         .btn-primary { background: var(--vbs-accent); color: white; }
         .btn-success { background: var(--vbs-success); color: white; }
         .btn-danger { background: var(--vbs-danger); color: white; }
-        .btn:hover { filter: brightness(1.1); }
+        .btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-        /* Accessible Table */
+        /* Accessible Glass Table */
         .table-wrapper {
-            background: white;
-            border-radius: 0.75rem;
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1rem;
             overflow: hidden;
-            box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
         }
 
         table { width: 100%; border-collapse: collapse; text-align: left; }
-        th { background: #f1f5f9; padding: 1rem; font-size: 0.75rem; text-transform: uppercase; color: #475569; }
-        td { padding: 1rem; border-top: 1px solid #f1f5f9; font-size: 0.875rem; }
+        th { background: rgba(241, 245, 249, 0.6); padding: 1.25rem 1rem; font-size: 0.75rem; text-transform: uppercase; color: #475569; font-weight: 800; }
+        td { padding: 1rem; border-top: 1px solid rgba(0,0,0,0.05); font-size: 0.875rem; }
+        tbody tr:hover { background: rgba(255, 255, 255, 0.5); }
 
         .badge {
             padding: 0.25rem 0.625rem;
             border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 700;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
         }
         .badge-admin { background: #fee2e2; color: #b91c1c; }
         .badge-user { background: #dcfce7; color: #15803d; }
@@ -147,33 +183,29 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(6px);
             align-items: center;
             justify-content: center;
-            z-index: 50;
+            z-index: 1000;
         }
         .modal.show { display: flex; }
         .modal-content {
             background: white;
             padding: 2rem;
-            border-radius: 1rem;
+            border-radius: 1.25rem;
             width: 90%;
             max-width: 480px;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
 
-        .form-group { margin-bottom: 1.25rem; }
-        .form-group label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .form-group input, .form-group select { width: 100%; }
-
-        /* Feedback Messages */
-        .message { padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; display: none; font-weight: 500; }
+        .message { padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; display: none; font-weight: 600; text-align: center; font-size: 0.875rem; }
         .message.success { display: block; background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
         .message.error { display: block; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
 
-        @media (max-width: 768px) {
-            .controls { flex-direction: column; }
-            input, select { width: 100%; }
+        @media (max-width: 992px) {
+            .analytics-container { grid-template-columns: 1fr; }
+            .chart-box { height: 280px; }
         }
     </style>
 </head>
@@ -194,32 +226,39 @@
     <div id="adminMessage" class="message"></div>
 
     <section>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <h2>Dashboard Overview</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2>System Overview</h2>
             <button class="btn btn-success" onclick="openAddUserModal()">+ Add New User</button>
         </div>
 
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">Total Users</div>
-                <div class="stat-value" id="totalUsers">0</div>
+        <div class="analytics-container">
+            <div class="glass-card chart-box">
+                <p class="stat-label" style="margin-bottom: 1rem; align-self: flex-start;">Wealth Distribution</p>
+                <canvas id="vbsWealthChart"></canvas>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">Total Vault Balance</div>
-                <div class="stat-value">₹<span id="totalBalance">0</span></div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Average Balance</div>
-                <div class="stat-value">₹<span id="avgBalance">0</span></div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">Active Accounts</div>
-                <div class="stat-value" id="activeUsers">0</div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Total Users</div>
+                    <div class="stat-value" id="totalUsers">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Vault Balance</div>
+                    <div class="stat-value">₹<span id="totalBalance">0</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Average Account Worth</div>
+                    <div class="stat-value">₹<span id="avgBalance">0</span></div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Cash Flow</div>
+                    <div class="stat-value" id="activeUsers">0</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="controls">
+    <section class="glass-card controls">
         <input type="text" id="searchInput" placeholder="Search by username..." aria-label="Search users">
         <button class="btn btn-primary" onclick="searchUsers()">Search</button>
         <select id="sortBy" onchange="applySort()">
@@ -238,7 +277,7 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>Name</th>
+                <th>Full Name</th>
                 <th>Username</th>
                 <th>Role</th>
                 <th>Balance</th>
@@ -246,7 +285,7 @@
             </tr>
             </thead>
             <tbody id="usersTableBody">
-            <tr><td colspan="6" style="text-align: center; padding: 3rem;">Initializing VBS Secure Records...</td></tr>
+            <tr><td colspan="6" style="text-align: center; padding: 4rem; color: #64748b; font-weight: 500;">Accessing Secure Banking Ledger...</td></tr>
             </tbody>
         </table>
     </section>
@@ -255,15 +294,15 @@
 
 <div id="viewUserModal" class="modal" role="dialog">
     <div class="modal-content">
-        <h2 style="font-size: 1.5rem;">User Profile</h2>
-        <div id="userDetailsContent" style="margin: 1.5rem 0; padding: 1rem; background: #f8fafc; border-radius: 0.5rem;"></div>
+        <h2 style="font-size: 1.25rem;">User Profile Detail</h2>
+        <div id="userDetailsContent" style="margin: 1.5rem 0; padding: 1.25rem; background: #f8fafc; border-radius: 0.75rem; border: 1px solid #e2e8f0;"></div>
         <button class="btn btn-primary" style="width: 100%;" onclick="closeViewUserModal()">Close</button>
     </div>
 </div>
 
 <div id="addUserModal" class="modal" role="dialog">
     <div class="modal-content">
-        <h2 style="font-size: 1.5rem;">Create New Account</h2>
+        <h2 style="font-size: 1.25rem;">Create VBS Account</h2>
         <form id="addUserForm" onsubmit="handleAddUser(event)">
             <div class="form-group">
                 <label for="addName">Full Name</label>
@@ -278,11 +317,11 @@
                 <input type="email" id="addEmail" name="email" required>
             </div>
             <div class="form-group">
-                <label for="addPassword">Password</label>
+                <label for="addPassword">Security Password</label>
                 <input type="password" id="addPassword" name="password" required>
             </div>
             <div class="form-group">
-                <label for="addBalance">Opening Balance (₹)</label>
+                <label for="addBalance">Initial Deposit (₹)</label>
                 <input type="number" id="addBalance" name="balance" required min="0" step="0.01">
             </div>
             <div class="form-group">
@@ -294,7 +333,7 @@
             </div>
             <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
                 <button type="button" class="btn" style="background: #e2e8f0; flex: 1;" onclick="closeAddUserModal()">Cancel</button>
-                <button type="submit" class="btn btn-primary" style="flex: 2;">Confirm Create</button>
+                <button type="submit" class="btn btn-primary" style="flex: 2;">Verify & Create</button>
             </div>
         </form>
     </div>
@@ -302,8 +341,8 @@
 
 <div id="deleteConfirmDialog" class="modal">
     <div class="modal-content" style="text-align: center;">
-        <h2 style="color: var(--vbs-danger);">Confirm Deletion</h2>
-        <p id="deleteConfirmText" style="margin: 1rem 0; color: #64748b;">Are you sure you want to remove this account? This cannot be undone.</p>
+        <h2 style="color: var(--vbs-danger); font-size: 1.25rem;">Permanent Deletion</h2>
+        <p id="deleteConfirmText" style="margin: 1rem 0; color: #64748b; font-size: 0.875rem;">Are you sure you want to remove this account from VBS? This cannot be undone.</p>
         <div style="display: flex; gap: 0.75rem;">
             <button class="btn" style="background: #e2e8f0; flex: 1;" onclick="closeDeleteConfirm()">Cancel</button>
             <button class="btn btn-danger" style="flex: 1;" onclick="deleteUser()">Delete Forever</button>
@@ -317,6 +356,7 @@
     let userId = null;
     let allUsers = [];
     let filteredUsers = [];
+    let wealthChart = null; // Chart instance
     const itemsPerPage = 10;
     let currentPage = 1;
     let currentSortBy = 'id';
@@ -339,6 +379,7 @@
             currentSortBy = sortBy;
             currentSortOrder = order;
             updateStatistics();
+            updateWealthChart(); // UPDATE CHART ON DATA LOAD
             displayUsers(filteredUsers);
         } catch (e) { displayErrorState(); }
     }
@@ -350,6 +391,41 @@
         document.getElementById('totalBalance').textContent = totalBalance.toLocaleString('en-IN');
         document.getElementById('avgBalance').textContent = (totalUsers > 0 ? totalBalance / totalUsers : 0).toLocaleString('en-IN', {maximumFractionDigits: 2});
         document.getElementById('activeUsers').textContent = allUsers.filter(u => u.balance > 0).length;
+    }
+
+    /* --- NEW FEATURE: WEALTH DISTRIBUTION CHART LOGIC --- */
+    function updateWealthChart() {
+        const high = allUsers.filter(u => u.balance >= 50000).length;
+        const mid = allUsers.filter(u => u.balance < 50000 && u.balance >= 5000).length;
+        const low = allUsers.filter(u => u.balance < 5000).length;
+
+        const ctx = document.getElementById('vbsWealthChart').getContext('2d');
+
+        if (wealthChart) { wealthChart.destroy(); }
+
+        wealthChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['High Net Worth', 'Standard', 'Entry Level'],
+                datasets: [{
+                    data: [high, mid, low],
+                    backgroundColor: ['#2563eb', '#10b981', '#cbd5e1'],
+                    hoverOffset: 4,
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { font: { size: 10, weight: '600' }, padding: 15 }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
     }
 
     function applySort() {
@@ -380,14 +456,14 @@
 
         tableBody.innerHTML = slice.map(u => `
             <tr>
-                <td style="font-weight: 600;">#${u.id}</td>
-                <td>${u.name}</td>
+                <td style="font-weight: 800; color: var(--vbs-accent);">#${u.id}</td>
+                <td style="font-weight: 600;">${u.name}</td>
                 <td>${u.username}</td>
                 <td><span class="badge badge-${u.role === 'admin' ? 'admin' : 'user'}">${u.role}</span></td>
-                <td style="font-weight: 700; color: var(--vbs-accent);">₹${u.balance.toFixed(2)}</td>
+                <td style="font-weight: 800; color: var(--vbs-primary);">₹${u.balance.toFixed(2)}</td>
                 <td>
-                    <button class="btn btn-primary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="viewUser(${u.id})">Profile</button>
-                    <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.75rem;" onclick="confirmDeleteUser(${u.id}, '${u.name}')">Delete</button>
+                    <button class="btn btn-primary" style="padding: 4px 8px; font-size: 0.7rem;" onclick="viewUser(${u.id})">Profile</button>
+                    <button class="btn btn-danger" style="padding: 4px 8px; font-size: 0.7rem;" onclick="confirmDeleteUser(${u.id}, '${u.name}')">Delete</button>
                 </td>
             </tr>
         `).join('');
@@ -395,7 +471,7 @@
         const pages = Math.ceil(users.length / itemsPerPage);
         document.getElementById('paginationControls').innerHTML = pages > 1 ?
             `<button class="btn" style="background: white; border: 1px solid #ddd;" onclick="goToPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>Prev</button>
-             <span style="padding: 0.5rem;">${currentPage} / ${pages}</span>
+             <span style="padding: 0.5rem; font-weight:700; font-size: 0.8rem;">${currentPage} / ${pages}</span>
              <button class="btn" style="background: white; border: 1px solid #ddd;" onclick="goToPage(${currentPage + 1})" ${currentPage === pages ? 'disabled' : ''}>Next</button>` : '';
     }
 
@@ -405,9 +481,9 @@
         const u = allUsers.find(x => x.id === id);
         if (!u) return;
         document.getElementById('userDetailsContent').innerHTML = `
-            <p style="margin-bottom: 0.5rem;"><strong>ID:</strong> #${u.id}</p>
-            <p style="margin-bottom: 0.5rem;"><strong>Full Name:</strong> ${u.name}</p>
-            <p style="margin-bottom: 0.5rem;"><strong>Email:</strong> ${u.email}</p>
+            <p style="margin-bottom: 0.6rem;"><strong>Customer ID:</strong> #${u.id}</p>
+            <p style="margin-bottom: 0.6rem;"><strong>Full Name:</strong> ${u.name}</p>
+            <p style="margin-bottom: 0.6rem;"><strong>Email Address:</strong> ${u.email}</p>
             <p><strong>Username:</strong> ${u.username}</p>
         `;
         document.getElementById('viewUserModal').classList.add('show');
@@ -429,15 +505,15 @@
                 method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
             });
             if (!res.ok) throw new Error();
-            showMessage('adminMessage', 'Account successfully created.', 'success');
+            showMessage('adminMessage', 'Account successfully created and added to VBS.', 'success');
             closeAddUserModal(); loadAllUsers();
-        } catch (err) { showMessage('adminMessage', 'Failed to create account.', 'error'); }
+        } catch (err) { showMessage('adminMessage', 'Failed to create account. Connection error.', 'error'); }
     }
 
     let delId = null;
     function confirmDeleteUser(id, name) {
         delId = id;
-        document.getElementById('deleteConfirmText').textContent = `Are you sure you want to delete ${name}?`;
+        document.getElementById('deleteConfirmText').textContent = `Are you sure you want to delete ${name}? This action is permanent.`;
         document.getElementById('deleteConfirmDialog').classList.add('show');
     }
     function closeDeleteConfirm() { document.getElementById('deleteConfirmDialog').classList.remove('show'); }

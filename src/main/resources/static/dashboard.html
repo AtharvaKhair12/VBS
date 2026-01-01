@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="VBS Secure Customer Dashboard - Manage your virtual banking account, transfers, and deposits safely.">
+    <meta name="description" content="VBS Secure Customer Dashboard - Premium Glass-morphism interface for managing virtual banking, transfers, and real-time financial trends.">
     <title>VBS Dashboard | Secure Personal Banking</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* --- BRANDING: VBS SLATE & COBALT --- */
+        /* --- BRANDING & GLASS-MORPHISM IDENTITY --- */
         :root {
-            --vbs-primary: #0f172a;
-            --vbs-accent: #3b82f6;
-            --vbs-success: #10b981;
-            --vbs-danger: #ef4444;
-            --vbs-bg: #f8fafc;
-            --vbs-white: #ffffff;
+            --vbs-primary: #0f172a;    /* Slate */
+            --vbs-accent: #3b82f6;     /* Cobalt Blue */
+            --vbs-success: #10b981;    /* Emerald */
+            --vbs-danger: #ef4444;     /* Red */
             --vbs-text: #1e293b;
-            --vbs-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            /* Glass colors */
+            --glass-white: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --vbs-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: var(--vbs-bg);
+            background: radial-gradient(circle at top left, #f8fafc, #e2e8f0);
             color: var(--vbs-text);
             line-height: 1.6;
+            min-height: 100vh;
         }
 
+        /* Semantic Header */
         header {
             background: var(--vbs-primary);
             color: white;
@@ -35,7 +38,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: var(--vbs-shadow);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
         .vbs-logo h1 { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.025em; }
@@ -54,6 +57,7 @@
 
         .logout-btn:hover { background: var(--vbs-danger); border-color: var(--vbs-danger); }
 
+        /* Main Layout */
         main {
             max-width: 900px;
             margin: 2.5rem auto;
@@ -65,43 +69,47 @@
             margin-bottom: 2.5rem;
         }
 
-        .dashboard-intro h2 { font-size: 2rem; color: var(--vbs-primary); margin-bottom: 0.5rem; }
-        .dashboard-intro p { color: #64748b; font-size: 0.875rem; }
+        .dashboard-intro h2 { font-size: 2rem; color: var(--vbs-primary); margin-bottom: 0.5rem; font-weight: 800; }
+        .dashboard-intro p { color: #64748b; font-size: 0.875rem; font-weight: 600; }
 
+        /* Glass Balance Card */
         .balance-card {
             background: var(--vbs-primary);
             background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: white;
             padding: 3rem 2rem;
-            border-radius: 1.25rem;
+            border-radius: 1.5rem;
             text-align: center;
             margin-bottom: 2rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.3);
             border-bottom: 4px solid var(--vbs-accent);
         }
 
-        .balance-card p { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; opacity: 0.8; margin-bottom: 0.75rem; }
-        .balance-amount { font-size: 3rem; font-weight: 800; }
+        .balance-card p { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; opacity: 0.7; margin-bottom: 0.75rem; font-weight: 700; }
+        .balance-amount { font-size: 3.5rem; font-weight: 800; }
 
-        /* --- CHART FIX: Fixed height prevents infinite scrolling --- */
+        /* Glass Chart Card */
         .chart-card {
-            background: var(--vbs-white);
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
             padding: 1.5rem;
-            border-radius: 1.25rem;
+            border-radius: 1.5rem;
             box-shadow: var(--vbs-shadow);
             margin-bottom: 2rem;
-            border-top: 4px solid var(--vbs-accent);
             height: 350px;
             position: relative;
             overflow: hidden;
         }
 
         .chart-card h3 {
-            font-size: 1rem;
+            font-size: 0.875rem;
             color: var(--vbs-primary);
             margin-bottom: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            font-weight: 800;
         }
 
         #vbsTrendChart {
@@ -109,6 +117,7 @@
             width: 100% !important;
         }
 
+        /* Glass Actions Grid */
         .actions-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -117,41 +126,54 @@
         }
 
         .btn {
-            padding: 1.25rem;
-            border: none;
-            border-radius: 1rem;
+            padding: 1.5rem 1rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 1.25rem;
             font-weight: 700;
             cursor: pointer;
-            transition: 0.3s;
-            background: var(--vbs-white);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--glass-white);
+            backdrop-filter: blur(8px);
             color: var(--vbs-primary);
-            box-shadow: var(--vbs-shadow);
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
         }
 
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px -10px rgba(0,0,0,0.15); }
+        .btn:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.1);
+        }
+
         .btn-withdraw { border-bottom: 4px solid var(--vbs-danger); }
         .btn-deposit { border-bottom: 4px solid var(--vbs-success); }
         .btn-transfer { border-bottom: 4px solid var(--vbs-accent); }
-        .btn-utility { border-bottom: 4px solid #64748b; }
+        .btn-utility { border-bottom: 4px solid #94a3b8; }
 
+        /* Messaging */
         .message {
             padding: 1rem;
             border-radius: 0.75rem;
             margin-bottom: 1.5rem;
             display: none;
-            font-weight: 600;
+            font-weight: 700;
             text-align: center;
+            box-shadow: var(--vbs-shadow);
         }
         .message.success { display: block; background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
         .message.error { display: block; background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
 
+        /* Glass Modals */
         .modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(6px);
             align-items: center;
             justify-content: center;
             z-index: 1000;
@@ -160,30 +182,32 @@
         .modal-content {
             background: white;
             padding: 2.5rem;
-            border-radius: 1.25rem;
+            border-radius: 1.5rem;
             width: 90%;
             max-width: 420px;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
 
         .modal-header { font-size: 1.25rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--vbs-primary); }
+
         .form-group { margin-bottom: 1.25rem; }
-        .form-group label { display: block; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .form-group label { display: block; font-size: 0.8125rem; font-weight: 700; margin-bottom: 0.5rem; color: #64748b; text-transform: uppercase; }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 0.75rem 1rem;
-            border: 1px solid #cbd5e1;
-            border-radius: 0.625rem;
+            padding: 0.875rem 1rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 0.75rem;
             font-size: 1rem;
+            background: #f8fafc;
         }
 
         .modal-btns { display: flex; gap: 0.75rem; margin-top: 2rem; }
-        .btn-submit { background: var(--vbs-primary); color: white; flex: 2; padding: 0.75rem; border-radius: 0.625rem; font-weight: 700; border: none; cursor: pointer; }
-        .btn-cancel { background: #f1f5f9; color: #475569; flex: 1; padding: 0.75rem; border-radius: 0.625rem; font-weight: 600; border: none; cursor: pointer; }
+        .btn-submit { background: var(--vbs-primary); color: white; flex: 2; padding: 0.875rem; border-radius: 0.75rem; font-weight: 700; border: none; cursor: pointer; }
+        .btn-cancel { background: #f1f5f9; color: #475569; flex: 1; padding: 0.875rem; border-radius: 0.75rem; font-weight: 600; border: none; cursor: pointer; }
 
         @media (max-width: 600px) {
             .actions-grid { grid-template-columns: repeat(2, 1fr); }
-            .balance-amount { font-size: 2.5rem; }
+            .balance-amount { font-size: 2.75rem; }
         }
     </style>
 </head>
@@ -199,27 +223,37 @@
 <main>
     <section class="dashboard-intro">
         <h2 id="welcomeText">Welcome</h2>
-        <p>User Authentication ID: <strong><span id="userId">-</span></strong></p>
+        <p>SECURE ACCOUNT ID: <strong><span id="userId">-</span></strong></p>
     </section>
 
     <div id="dashMessage" class="message"></div>
 
     <section class="balance-card">
-        <p>Verified Available Funds</p>
+        <p>Liquid Funds Available</p>
         <div class="balance-amount">₹ <span id="balance">0.00</span></div>
     </section>
 
     <section class="chart-card">
-        <h3>Account Balance Trend</h3>
+        <h3>Performance Insights</h3>
         <canvas id="vbsTrendChart"></canvas>
     </section>
 
     <nav class="actions-grid">
-        <button class="btn btn-withdraw" onclick="openWithdrawModal()">Withdraw</button>
-        <button class="btn btn-deposit" onclick="openDepositModal()">Deposit</button>
-        <button class="btn btn-transfer" onclick="openTransferModal()">Transfer</button>
-        <button class="btn btn-utility" onclick="goToPassbook()">Passbook</button>
-        <button class="btn btn-utility" onclick="openUpdateModal()">Settings</button>
+        <button class="btn btn-withdraw" onclick="openWithdrawModal()">
+            <span>Withdraw</span>
+        </button>
+        <button class="btn btn-deposit" onclick="openDepositModal()">
+            <span>Deposit</span>
+        </button>
+        <button class="btn btn-transfer" onclick="openTransferModal()">
+            <span>Transfer</span>
+        </button>
+        <button class="btn btn-utility" onclick="goToPassbook()">
+            <span>Passbook</span>
+        </button>
+        <button class="btn btn-utility" onclick="openUpdateModal()">
+            <span>Settings</span>
+        </button>
     </nav>
 </main>
 
@@ -227,7 +261,7 @@
     <div class="modal-content">
         <div class="modal-header">Withdrawal</div>
         <form id="withdrawForm">
-            <div class="form-group"><label>Amount</label><input type="number" id="withdrawAmount" step="0.01" min="0" required></div>
+            <div class="form-group"><label>Value (INR)</label><input type="number" id="withdrawAmount" step="0.01" min="0" required></div>
             <div class="modal-btns">
                 <button type="button" class="btn-cancel" onclick="closeWithdrawModal()">Cancel</button>
                 <button type="submit" class="btn-submit">Process</button>
@@ -238,9 +272,9 @@
 
 <div id="depositModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header">Deposit</div>
+        <div class="modal-header">Quick Deposit</div>
         <form id="depositForm">
-            <div class="form-group"><label>Amount</label><input type="number" id="depositAmount" step="0.01" min="0" required></div>
+            <div class="form-group"><label>Value (INR)</label><input type="number" id="depositAmount" step="0.01" min="0" required></div>
             <div class="modal-btns">
                 <button type="button" class="btn-cancel" onclick="closeDepositModal()">Cancel</button>
                 <button type="submit" class="btn-submit">Confirm</button>
@@ -251,13 +285,13 @@
 
 <div id="transferModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header">Secure Transfer</div>
+        <div class="modal-header">Internal Transfer</div>
         <form id="transferForm">
             <div class="form-group"><label>Recipient Username</label><input type="text" id="transferUsername" required></div>
-            <div class="form-group"><label>Amount</label><input type="number" id="transferAmount" step="0.01" min="0" required></div>
+            <div class="form-group"><label>Value (INR)</label><input type="number" id="transferAmount" step="0.01" min="0" required></div>
             <div class="modal-btns">
                 <button type="button" class="btn-cancel" onclick="closeTransferModal()">Cancel</button>
-                <button type="submit" class="btn-submit">Send</button>
+                <button type="submit" class="btn-submit">Send Funds</button>
             </div>
         </form>
     </div>
@@ -265,26 +299,27 @@
 
 <div id="updateModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header">Update Profile</div>
+        <div class="modal-header">Security Settings</div>
         <form id="updateForm">
             <div class="form-group">
-                <label>Field</label>
+                <label>Authorized Field</label>
                 <select id="updateKey" required>
-                    <option value="name">Name</option>
-                    <option value="password">Password</option>
-                    <option value="email">Email</option>
+                    <option value="name">Display Name</option>
+                    <option value="password">System Password</option>
+                    <option value="email">Contact Email</option>
                 </select>
             </div>
-            <div class="form-group"><label>Value</label><input type="text" id="updateValue" required></div>
+            <div class="form-group"><label>Updated Value</label><input type="text" id="updateValue" required></div>
             <div class="modal-btns">
                 <button type="button" class="btn-cancel" onclick="closeUpdateModal()">Cancel</button>
-                <button type="submit" class="btn-submit">Update</button>
+                <button type="submit" class="btn-submit">Update Ledger</button>
             </div>
         </form>
     </div>
 </div>
 
 <script>
+    /* --- STRICT VBS BACKEND LOGIC PRESERVATION --- */
     const API_URL = 'http://localhost:8081';
     let userId = null;
     let role = 'customer';
@@ -306,7 +341,7 @@
             if (document.getElementById('balance')) document.getElementById('balance').textContent = data.balance.toFixed(2);
             loadGraphData();
         } catch {
-            showMessage('dashMessage', 'VBS Data Sync Failed', 'error');
+            showMessage('dashMessage', 'VBS Sync Interrupted', 'error');
         }
     }
 
@@ -319,7 +354,7 @@
             const balances = plotData.map(t => t.currBalance);
             renderVBSChart(labels, balances);
         } catch (error) {
-            console.error("VBS Chart Sync Error:", error);
+            console.error("VBS Analytic Error:", error);
         }
     }
 
@@ -332,24 +367,25 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Balance (₹)',
+                    label: 'Liquidity',
                     data: balances,
                     borderColor: '#3b82f6',
                     backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                    borderWidth: 3,
+                    borderWidth: 4,
                     fill: true,
                     tension: 0.4,
-                    pointRadius: 4,
-                    pointBackgroundColor: '#3b82f6'
+                    pointRadius: 5,
+                    pointBackgroundColor: '#3b82f6',
+                    pointBorderColor: '#ffffff'
                 }]
             },
             options: {
                 responsive: true,
-                maintainAspectRatio: false, // STOPS INFINITE GROWTH
+                maintainAspectRatio: false,
                 plugins: { legend: { display: false } },
                 scales: {
-                    y: { beginAtZero: false, grid: { color: '#f1f5f9' }, ticks: { font: { size: 10 } } },
-                    x: { grid: { display: false }, ticks: { font: { size: 10 } } }
+                    y: { beginAtZero: false, grid: { color: 'rgba(0,0,0,0.03)' }, ticks: { font: { size: 10, weight: '600' } } },
+                    x: { grid: { display: false }, ticks: { font: { size: 10, weight: '600' } } }
                 }
             }
         });
@@ -378,9 +414,9 @@
             const res = await fetch(`${API_URL}/withdraw`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
             const result = await res.text();
             if (result && result.toLowerCase().includes('withdrawal')) {
-                showMessage('dashMessage', 'Withdrawal successful', 'success'); closeWithdrawModal(); loadDashboard();
+                showMessage('dashMessage', 'Ledger Adjusted: Withdrawal Successful', 'success'); closeWithdrawModal(); loadDashboard();
             } else showMessage('dashMessage', result, 'error');
-        } catch { showMessage('dashMessage', 'Error', 'error'); }
+        } catch { showMessage('dashMessage', 'Logic error', 'error'); }
     });
 
     document.getElementById('depositForm').addEventListener('submit', async (e) => {
@@ -390,9 +426,9 @@
             const res = await fetch(`${API_URL}/deposit`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
             const result = await res.text();
             if (result && result.toLowerCase().includes('deposit')) {
-                showMessage('dashMessage', 'Deposit successful', 'success'); closeDepositModal(); loadDashboard();
+                showMessage('dashMessage', 'Ledger Adjusted: Funds Deposited', 'success'); closeDepositModal(); loadDashboard();
             } else showMessage('dashMessage', result, 'error');
-        } catch { showMessage('dashMessage', 'Error', 'error'); }
+        } catch { showMessage('dashMessage', 'Logic error', 'error'); }
     });
 
     document.getElementById('transferForm').addEventListener('submit', async (e) => {
@@ -402,9 +438,9 @@
             const res = await fetch(`${API_URL}/transfer`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
             const result = await res.text();
             if (res.ok && result.toLowerCase().includes('successfully')) {
-                showMessage('dashMessage', 'Transfer successful', 'success'); closeTransferModal(); loadDashboard();
+                showMessage('dashMessage', 'Secure Transfer Complete', 'success'); closeTransferModal(); loadDashboard();
             } else showMessage('dashMessage', result, 'error');
-        } catch { showMessage('dashMessage', 'Error', 'error'); }
+        } catch { showMessage('dashMessage', 'Logic error', 'error'); }
     });
 
     document.getElementById('updateForm').addEventListener('submit', async (e) => {
@@ -414,9 +450,9 @@
             const res = await fetch(`${API_URL}/update`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
             const result = await res.text();
             if (res.ok && result.toLowerCase().includes('successfully')) {
-                showMessage('dashMessage', 'Updated', 'success'); closeUpdateModal(); loadDashboard();
+                showMessage('dashMessage', 'VBS Profile Sync: Updated', 'success'); closeUpdateModal(); loadDashboard();
             } else showMessage('dashMessage', result, 'error');
-        } catch { showMessage('dashMessage', 'Error', 'error'); }
+        } catch { showMessage('dashMessage', 'Logic error', 'error'); }
     });
 
     function validateUserAccess() {
@@ -424,7 +460,7 @@
         const params = new URLSearchParams(window.location.search);
         const urlId = params.get("id");
         if (!storedId) { window.location.href = "login.html"; return; }
-        if (urlId && urlId !== storedId) { alert("Unauthorized"); window.location.href = "login.html"; return; }
+        if (urlId && urlId !== storedId) { alert("Security Exception: Access Denied"); window.location.href = "login.html"; return; }
         userId = storedId;
         window.history.replaceState({}, document.title, "dashboard.html");
     }

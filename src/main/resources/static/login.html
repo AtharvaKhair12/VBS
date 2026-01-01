@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Secure login portal for VBS - Virtual Banking System. Access your personal account or administrative dashboard safely.">
+    <meta name="description" content="Secure Glass-morphism login portal for VBS - Virtual Banking System. Access your personal account or administrative dashboard safely with high-speed encryption.">
     <title>VBS Login | Secure Access Portal</title>
     <style>
-        /* --- BRANDING: VBS SLATE & COBALT --- */
+        /* --- BRANDING & GLASS-MORPHISM IDENTITY --- */
         :root {
             --vbs-primary: #0f172a;    /* High-contrast Slate */
             --vbs-accent: #3b82f6;     /* Cobalt Blue */
             --vbs-bg: #f8fafc;
             --vbs-white: #ffffff;
             --vbs-text: #1e293b;
+            /* Glass colors */
+            --glass-white: rgba(255, 255, 255, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.4);
             --vbs-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
@@ -20,7 +23,7 @@
 
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--vbs-bg);
+            background: radial-gradient(circle at top right, #e2e8f0, #f8fafc);
             color: var(--vbs-text);
             min-height: 100vh;
             display: flex;
@@ -29,12 +32,15 @@
             padding: 1.25rem;
         }
 
-        /* Semantic Container */
+        /* Glass Semantic Container */
         main {
             width: 100%;
             max-width: 440px;
-            background: var(--vbs-white);
-            border-radius: 1rem;
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
             box-shadow: var(--vbs-shadow);
             overflow: hidden;
             border-top: 5px solid var(--vbs-accent);
@@ -56,20 +62,24 @@
         header h1 span { color: var(--vbs-accent); }
 
         header p {
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
             margin-top: 0.5rem;
             opacity: 0.8;
-            font-weight: 500;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .content { padding: 2.5rem 2rem; }
 
         h2 {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             color: var(--vbs-primary);
             margin-bottom: 2rem;
             text-align: center;
-            font-weight: 700;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
         }
 
         /* Form Controls */
@@ -79,48 +89,52 @@
             display: block;
             margin-bottom: 0.5rem;
             color: #475569;
-            font-weight: 600;
-            font-size: 0.875rem;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.875rem 1rem;
             border: 1.5px solid #e2e8f0;
-            border-radius: 0.625rem;
+            border-radius: 0.75rem;
             font-size: 1rem;
             color: var(--vbs-text);
-            transition: all 0.2s;
-            background: #fff;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(255, 255, 255, 0.8);
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--vbs-accent);
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
         }
 
-        /* SEO Friendly High-Contrast Button */
+        /* Accessible High-Contrast Button */
         .btn {
             width: 100%;
-            padding: 0.875rem;
+            padding: 1rem;
             border: none;
-            border-radius: 0.625rem;
-            font-size: 1rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
             cursor: pointer;
             transition: all 0.3s;
-            font-weight: 700;
+            font-weight: 800;
             background: var(--vbs-primary);
             color: white;
             margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .btn:hover {
             background: #1e293b;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.25);
+            box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.3);
         }
 
         /* Navigational Links */
@@ -129,13 +143,15 @@
             margin-top: 1.5rem;
             color: #64748b;
             font-size: 0.875rem;
+            font-weight: 600;
         }
 
         .link-area a {
             color: var(--vbs-accent);
             text-decoration: none;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
+            margin-left: 0.25rem;
         }
 
         .link-area a:hover { text-decoration: underline; }
@@ -143,12 +159,14 @@
         /* Accessible Feedback Messages */
         .message {
             padding: 1rem;
-            border-radius: 0.625rem;
+            border-radius: 0.75rem;
             margin-bottom: 1.5rem;
-            font-size: 0.875rem;
+            font-size: 0.8125rem;
             display: none;
-            font-weight: 600;
+            font-weight: 700;
+            text-align: center;
             border: 1px solid transparent;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
         }
 
         .message.success {
@@ -171,42 +189,42 @@
 <main>
     <header>
         <h1>VBS <span>ONLINE</span></h1>
-        <p>Virtual Banking System</p>
+        <p>Verified Virtual Banking System</p>
     </header>
 
     <div class="content">
-        <h2>Secure Portal Login</h2>
+        <h2>Secure Authentication</h2>
 
         <div id="loginMessage" class="message" role="alert"></div>
 
         <form id="loginForm">
             <div class="form-group">
-                <label for="loginUsername">Username</label>
-                <input type="text" id="loginUsername" name="username" required aria-required="true">
+                <label for="loginUsername">Credential ID</label>
+                <input type="text" id="loginUsername" name="username" required aria-required="true" placeholder="Username">
             </div>
 
             <div class="form-group">
-                <label for="loginPassword">Security Password</label>
-                <input type="password" id="loginPassword" name="password" required aria-required="true">
+                <label for="loginPassword">Security Token</label>
+                <input type="password" id="loginPassword" name="password" required aria-required="true" placeholder="••••••••">
             </div>
 
             <div class="form-group">
-                <label for="loginRole">System Access Role</label>
+                <label for="loginRole">Access Authority</label>
                 <select id="loginRole" name="role" required aria-required="true">
                     <option value="">Select Role</option>
-                    <option value="customer">Customer</option>
-                    <option value="admin">Administrator</option>
+                    <option value="customer">Standard User</option>
+                    <option value="admin">System Administrator</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn">AUTHENTICATE</button>
+            <button type="submit" class="btn">Process Authentication</button>
         </form>
 
         <div class="link-area">
-            New to VBS? <a onclick="window.location.href='signup.html'">Apply for Account</a>
+            New to VBS? <a onclick="window.location.href='signup.html'">Open Account</a>
         </div>
         <div class="link-area">
-            <a onclick="window.location.href='home.html'">← Return to Home</a>
+            <a onclick="window.location.href='home.html'">← Back to Home</a>
         </div>
     </div>
 </main>
@@ -218,7 +236,7 @@
     function showMessage(elementId, message, type) {
         const messageEl = document.getElementById(elementId);
         messageEl.textContent = message;
-        messageEl.className = `message ${type}`; // Class logic remains identical to original
+        messageEl.className = `message ${type}`;
     }
 
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -240,7 +258,7 @@
             const result = (await response.text()).trim();
 
             if (/^\d+$/.test(result)) {
-                showMessage('loginMessage', 'Authentication successful. Accessing ledger...', 'success');
+                showMessage('loginMessage', 'Identity verified. Syncing with ledger...', 'success');
 
                 localStorage.clear();
                 localStorage.setItem("userId", result);
@@ -260,7 +278,7 @@
                 showMessage('loginMessage', result, 'error');
             }
         } catch (error) {
-            showMessage('loginMessage', 'VBS Network Error: Connection refused.', 'error');
+            showMessage('loginMessage', 'Security Error: API connection rejected.', 'error');
             console.error('Login error:', error);
         }
     });

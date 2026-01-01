@@ -3,46 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="VBS Secure Passbook - A digital ledger providing a real-time, high-speed audit of all deposits, withdrawals, and transfers within the Virtual Banking System.">
+    <meta name="description" content="VBS Secure Passbook - Premium Glass-morphism digital ledger for a real-time audit of all virtual banking transactions.">
     <title>VBS Passbook | Secure Digital Ledger</title>
 
     <style>
-        /* --- BRANDING: VBS SLATE & COBALT --- */
+        /* --- BRANDING & GLASS-MORPHISM IDENTITY --- */
         :root {
-            --vbs-primary: #0f172a;    /* High-contrast Slate */
+            --vbs-primary: #0f172a;    /* Slate */
             --vbs-accent: #3b82f6;     /* Cobalt Blue */
-            --vbs-success: #10b981;    /* Accessible Emerald */
-            --vbs-danger: #ef4444;     /* Accessible Red */
-            --vbs-info: #0ea5e9;       /* Light Blue for Transfers */
+            --vbs-success: #10b981;    /* Emerald */
+            --vbs-danger: #ef4444;     /* Red */
+            --vbs-info: #0ea5e9;       /* Light Blue */
             --vbs-bg: #f8fafc;
             --vbs-white: #ffffff;
             --vbs-text: #1e293b;
-            --vbs-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            /* Glass colors */
+            --glass-white: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --vbs-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            background-color: var(--vbs-bg);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: radial-gradient(circle at top left, #f8fafc, #e2e8f0);
             color: var(--vbs-text);
             line-height: 1.5;
             min-height: 100vh;
             padding: 1.5rem;
         }
 
-        /* Semantic Layout */
+        /* Glass Container */
         .vbs-main-container {
             max-width: 1000px;
             margin: auto;
-            background: var(--vbs-white);
-            border-radius: 1rem;
+            background: var(--glass-white);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
             box-shadow: var(--vbs-shadow);
             overflow: hidden;
             border-top: 5px solid var(--vbs-accent);
         }
 
-        /* Semantic Header */
+        /* Glass Header */
         header {
             background: var(--vbs-primary);
             padding: 2rem;
@@ -70,8 +76,6 @@
             text-decoration: none;
             transition: 0.2s;
             font-size: 0.875rem;
-            display: flex;
-            align-items: center;
         }
 
         .btn-nav:hover { background: var(--vbs-accent); border-color: var(--vbs-accent); }
@@ -84,80 +88,87 @@
             justify-content: space-between;
             align-items: flex-end;
             margin-bottom: 2.5rem;
-            border-bottom: 2px solid #e2e8f0;
+            border-bottom: 2px solid rgba(0,0,0,0.05);
             padding-bottom: 1.5rem;
         }
 
-        .ledger-summary h2 { font-size: 1.5rem; color: var(--vbs-primary); font-weight: 700; }
+        .ledger-summary h2 { font-size: 1.75rem; color: var(--vbs-primary); font-weight: 800; }
 
         .balance-indicator {
             background: var(--vbs-primary);
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
             color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 0.75rem;
+            padding: 1.25rem 1.75rem;
+            border-radius: 1rem;
             text-align: right;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 20px -5px rgba(15, 23, 42, 0.3);
         }
 
-        .balance-indicator p { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; opacity: 0.8; letter-spacing: 0.05em; }
-        .balance-indicator .amount { font-size: 1.75rem; font-weight: 800; color: var(--vbs-accent); margin-top: 0.25rem; }
+        .balance-indicator p { font-size: 0.7rem; text-transform: uppercase; font-weight: 800; opacity: 0.7; letter-spacing: 0.1em; }
+        .balance-indicator .amount { font-size: 2rem; font-weight: 800; color: var(--vbs-accent); margin-top: 0.25rem; }
 
-        /* Transaction List Styling */
+        /* Glass Transaction Cards */
         .transactions-outer {
-            background: #f1f5f9;
+            background: rgba(0, 0, 0, 0.02);
             padding: 1.5rem;
-            border-radius: 0.75rem;
+            border-radius: 1.25rem;
         }
 
         .transaction-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
             padding: 1.25rem;
-            border-radius: 0.75rem;
+            border-radius: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             border-left: 6px solid var(--vbs-accent);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .transaction-card:hover { transform: scale(1.01); }
+        .transaction-card:hover {
+            transform: scale(1.01) translateY(-2px);
+            background: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
 
-        /* Accessible Indicators */
         .transaction-card.deposit { border-left-color: var(--vbs-success); }
         .transaction-card.withdrawal { border-left-color: var(--vbs-danger); }
         .transaction-card.transfer { border-left-color: var(--vbs-info); }
 
-        .card-left { display: flex; gap: 1rem; align-items: center; }
+        .card-left { display: flex; gap: 1.25rem; align-items: center; }
 
         .icon-circle {
-            width: 48px; height: 48px;
+            width: 52px; height: 52px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             flex-shrink: 0;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .deposit .icon-circle { background: #dcfce7; color: var(--vbs-success); }
         .withdrawal .icon-circle { background: #fee2e2; color: var(--vbs-danger); }
         .transfer .icon-circle { background: #e0f2fe; color: var(--vbs-info); }
 
-        .details .type-desc { font-weight: 700; color: var(--vbs-primary); font-size: 1rem; }
-        .details .timestamp { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; }
+        .details .type-desc { font-weight: 800; color: var(--vbs-primary); font-size: 1.05rem; }
+        .details .timestamp { font-size: 0.75rem; color: #64748b; margin-top: 0.35rem; font-weight: 600; }
 
         .card-right { text-align: right; }
 
-        .trans-amount { font-size: 1.125rem; font-weight: 800; }
+        .trans-amount { font-size: 1.25rem; font-weight: 800; }
         .deposit .trans-amount { color: var(--vbs-success); }
         .withdrawal .trans-amount { color: var(--vbs-danger); }
         .transfer .trans-amount { color: var(--vbs-info); }
 
-        .post-balance { font-size: 0.75rem; color: #64748b; margin-top: 0.25rem; font-weight: 600; }
+        .post-balance { font-size: 0.75rem; color: #64748b; margin-top: 0.35rem; font-weight: 700; letter-spacing: 0.025em; }
 
-        /* SEO Friendly Pagination */
+        /* Glass Pagination */
         .pagination-area {
             margin-top: 2rem;
             display: flex;
@@ -166,30 +177,32 @@
         }
 
         .pagination-area button {
-            padding: 0.5rem 1rem;
-            border: 1px solid #cbd5e1;
-            background: white;
-            border-radius: 0.5rem;
+            padding: 0.625rem 1.125rem;
+            border: 1px solid var(--glass-border);
+            background: var(--glass-white);
+            backdrop-filter: blur(4px);
+            border-radius: 0.75rem;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--vbs-primary);
-            transition: 0.2s;
+            transition: all 0.2s;
         }
 
         .pagination-area button.active {
             background: var(--vbs-primary);
             color: white;
             border-color: var(--vbs-primary);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        .pagination-area button:hover:not(.active) { background: #f1f5f9; }
+        .pagination-area button:hover:not(.active) { background: white; transform: translateY(-1px); }
 
         @media (max-width: 640px) {
             header { padding: 1.5rem; }
-            .ledger-summary { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .ledger-summary { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
             .balance-indicator { width: 100%; text-align: left; }
-            .transaction-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            .card-right { text-align: left; width: 100%; padding-left: 4rem; }
+            .transaction-card { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+            .card-right { text-align: left; width: 100%; padding-left: 4.5rem; }
         }
     </style>
 </head>
@@ -211,10 +224,10 @@
         <section class="ledger-summary">
             <div>
                 <h2>Secure Digital Ledger</h2>
-                <p style="color: #64748b; font-size: 0.875rem;">Authentication Verified Transaction Audit</p>
+                <p style="color: #64748b; font-size: 0.875rem; font-weight: 600;">Authenticated Transaction Audit</p>
             </div>
             <div class="balance-indicator">
-                <p>Verified Net Balance</p>
+                <p>Available Net Balance</p>
                 <div class="amount">₹<span id="currentBalance">0.00</span></div>
             </div>
         </section>
@@ -274,7 +287,7 @@
         const slice=sorted.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage);
 
         if (slice.length === 0) {
-            list.innerHTML = '<div style="text-align:center; padding: 2rem; color: #64748b; font-weight:600;">No ledger entries found for this authentication ID.</div>';
+            list.innerHTML = '<div style="text-align:center; padding: 3rem; color: #64748b; font-weight:700; opacity:0.6;">No ledger entries found for this authentication ID.</div>';
             return;
         }
 
@@ -298,7 +311,7 @@
                 </div>
                 <div class="card-right">
                     <div class="trans-amount" aria-label="Amount">${sign}₹${t.amount.toFixed(2)}</div>
-                    <div class="post-balance">Balance ₹${t.currBalance.toFixed(2)}</div>
+                    <div class="post-balance">Closing: ₹${t.currBalance.toFixed(2)}</div>
                 </div>
             </article>`;
         }).join('');
